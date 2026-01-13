@@ -2,21 +2,24 @@ FROM node:22-alpine
 
 WORKDIR /app
 
-# Dependencies voor build
 RUN apk add --no-cache git
 
-# Clone TimeLimit server
+# Clone backend
 RUN git clone https://codeberg.org/timelimit/timelimit-server.git .
 
-# Installeer dependencies en build
+# Install dependencies
 RUN npm install
+
+# Build TypeScript → JavaScript
 RUN npm run build
 
-# Verwijder dev dependencies
+# Remove dev dependencies
 RUN npm prune --production
 
-# Expose port
+# Copy start script
+COPY run.sh /app/run.sh
+RUN chmod +x /app/run.sh
+
 EXPOSE 8080
 
-# Start de server
-CMD ["node", "build/index.js"]
+CMD ["/app/run.sh"]
