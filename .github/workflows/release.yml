@@ -57,7 +57,7 @@ jobs:
           context: ./timelimit
           file: ./timelimit/Dockerfile
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/timelimit-ha:${{ steps.bump.outputs.new_version }}
+          tags: ghcr.io/jeroenlind/timelimit-ha:${{ steps.bump.outputs.new_version }}
 
       - name: Push commit and tag
         run: |
