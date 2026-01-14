@@ -20,7 +20,7 @@ jobs:
       - name: Read current version from config.json
         id: read_version
         run: |
-          VERSION=$(jq -r '.version' config.json)
+          VERSION=$(jq -r '.version' timelimit/config.json)
           echo "current_version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Calculate next patch version
@@ -33,14 +33,14 @@ jobs:
 
       - name: Update version in config.json
         run: |
-          jq ".version = \"${{ steps.bump.outputs.new_version }}\"" config.json > config.tmp
-          mv config.tmp config.json
+          jq ".version = \"${{ steps.bump.outputs.new_version }}\"" timelimit/config.json > timelimit/config.tmp
+          mv timelimit/config.tmp timelimit/config.json
 
       - name: Commit updated version
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add config.json
+          git add timelimit/config.json
           git commit -m "Bump version to ${{ steps.bump.outputs.new_version }}"
           git tag ${{ steps.bump.outputs.new_version }}
 
@@ -54,7 +54,8 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
-          context: .
+          context: ./timelimit
+          file: ./timelimit/Dockerfile
           push: true
           tags: ghcr.io/${{ github.repository_owner }}/timelimit-ha:${{ steps.bump.outputs.new_version }}
 
