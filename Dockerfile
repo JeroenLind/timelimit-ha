@@ -2,13 +2,17 @@ FROM node:22-alpine
 
 WORKDIR /app
 
-RUN apk add --no-cache git
+# Install required system packages
+RUN apk add --no-cache git sqlite
 
 # Clone backend
 RUN git clone https://codeberg.org/timelimit/timelimit-server.git .
 
-# Install dependencies
+# Install backend dependencies
 RUN npm install
+
+# Install bcryptjs for run.sh
+RUN npm install bcryptjs
 
 # Build TypeScript → JavaScript
 RUN npm run build
