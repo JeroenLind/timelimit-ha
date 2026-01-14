@@ -1,6 +1,6 @@
 {
   "name": "TimeLimit Server",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "slug": "timelimit",
   "description": "Self-hosted TimeLimit server (SQLite)",
   "startup": "services",
@@ -10,8 +10,15 @@
   },
   "webui": "http://[HOST]:[PORT:8080]",
   "ingress": false,
-  "arch": ["aarch64", "amd64", "armv7"],
-  "map": ["share:rw", "data:rw"],
+  "arch": [
+    "aarch64",
+    "amd64",
+    "armv7"
+  ],
+  "map": [
+    "share:rw",
+    "data:rw"
+  ],
   "options": {
     "admin_token": "setup:initial-admin"
   },
