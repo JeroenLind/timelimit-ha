@@ -37,5 +37,5 @@ jobs:
           push: true
           tags: |
             ghcr.io/jeroenlind/timelimit-ha:latest
-            ghcr.io/jeroenlind/timelimit-ha:1.0.0
+            ghcr.io/jeroenlind/timelimit-ha:1.0.1
           platforms: linux/amd64,linux/arm64
