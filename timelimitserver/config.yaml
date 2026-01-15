@@ -38,10 +38,10 @@ jobs:
       # ------------------------------------------------------------
       # Stap 3: Huidige versie uitlezen (robuust)
       # Werkt met:
-      # - version: "0.0.1"
-      # - version: '0.0.1'
-      # - version: 0.0.1
-      # - version:   "0.0.1"   # met spaties
+      # - version: "..1"
+      # - version: "..1"
+      # - version: "..1"
+      # - version: "..1"
       # ------------------------------------------------------------
       - name: Read current version from config.yaml
         id: read_version
@@ -67,7 +67,7 @@ jobs:
       # ------------------------------------------------------------
       - name: Update version in config.yaml
         run: |
-          sed -i -E "s/^version:[[:space:]]*\"?[0-9]+\.[0-9]+\.[0-9]+\"?/version: \"${{ steps.bump_version.outputs.new_version }}\"/" timelimitserver/config.yaml
+          sed -i -E "s/^version:[[:space:]]*\"?[0-9]+\.[0-9]+\.[0-9]+\"?/version: "..1"
 
       # ------------------------------------------------------------
       # Stap 6: Check of er echt iets gewijzigd is
