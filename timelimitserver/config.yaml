@@ -1,133 +1,30 @@
-name: Auto bump version, build and push
+# Naam zoals zichtbaar in Home Assistant
+name: "TimeLimit Server"
 
-on:
-  push:
-    branches:
-      - main
-    paths:
-      - "timelimitserver/**"
+# Unieke identifier voor deze add-on
+slug: "timelimitserver"
 
-  # Hiermee kun je de workflow handmatig starten via Actions → Run workflow
-  workflow_dispatch:
+# Add-on versie (los van de echte serverversie)
+version: "0.0.1"
 
-jobs:
-  bump-build-push:
-    runs-on: ubuntu-latest
+# Auteur / maintainer
+author: "jeroenlind"
 
-    permissions:
-      contents: write      # Nodig om commits te maken
-      packages: write      # Nodig om naar GHCR te pushen
+# Korte beschrijving van deze eerste infra-versie
+description: "Infrastructure-only test add-on for TimeLimit server container via GHCR."
 
-    steps:
-      # ------------------------------------------------------------
-      # Stap 1: Repo ophalen
-      # ------------------------------------------------------------
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0   # Nodig om commits te kunnen maken
+# Ondersteunde architecturen; matcht straks met de Docker build
+arch:
+  - amd64
+  - armv7
+  - aarch64
 
-      # ------------------------------------------------------------
-      # Stap 2: Line endings normaliseren (CRLF → LF)
-      # Dit voorkomt problemen met grep/sed/awk op Linux.
-      # ------------------------------------------------------------
-      - name: Normalize line endings to LF
-        run: |
-          sed -i 's/\r$//' timelimitserver/config.yaml
+# Externe container image in GitHub Container Registry
+# {arch} wordt door Home Assistant vervangen door de juiste architectuur
+image: "ghcr.io/jeroenlind/timelimitserver-{arch}"
 
-      # ------------------------------------------------------------
-      # Stap 3: Huidige versie uitlezen (robuust)
-      # Werkt met:
-      # - version: "..1"
-      # - version: "..1"
-      # - version: "..1"
-      # - version: "..1"
-      # ------------------------------------------------------------
-      - name: Read current version from config.yaml
-        id: read_version
-        run: |
-          VERSION=$(grep -E '^version:' timelimitserver/config.yaml \
-            | sed -E 's/version:[[:space:]]*"?([0-9]+\.[0-9]+\.[0-9]+)"?/\1/')
-          echo "current_version=$VERSION" >> $GITHUB_OUTPUT
+# Nog geen configuratie-opties nodig in deze infra-stap
+options: {}
 
-      # ------------------------------------------------------------
-      # Stap 4: Patch-versie verhogen
-      # ------------------------------------------------------------
-      - name: Calculate next patch version
-        id: bump_version
-        run: |
-          IFS='.' read -r MAJOR MINOR PATCH <<< "${{ steps.read_version.outputs.current_version }}"
-          PATCH=$((PATCH + 1))
-          NEW_VERSION="$MAJOR.$MINOR.$PATCH"
-          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
-
-      # ------------------------------------------------------------
-      # Stap 5: Nieuwe versie terugschrijven in config.yaml
-      # Robuuste sed die alle varianten vervangt.
-      # ------------------------------------------------------------
-      - name: Update version in config.yaml
-        run: |
-          sed -i -E "s/^version:[[:space:]]*\"?[0-9]+\.[0-9]+\.[0-9]+\"?/version: "..1"
-
-      # ------------------------------------------------------------
-      # Stap 6: Check of er echt iets gewijzigd is
-      # ------------------------------------------------------------
-      - name: Check if version changed
-        id: version_changed
-        run: |
-          if git diff --quiet timelimitserver/config.yaml; then
-            echo "changed=false" >> $GITHUB_OUTPUT
-          else
-            echo "changed=true" >> $GITHUB_OUTPUT
-          fi
-
-      # ------------------------------------------------------------
-      # Stap 7: Commit alleen als er iets gewijzigd is
-      # ------------------------------------------------------------
-      - name: Commit updated version
-        if: steps.version_changed.outputs.changed == 'true'
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-          git add timelimitserver/config.yaml
-          git commit -m "Auto bump version to ${{ steps.bump_version.outputs.new_version }}"
-          git push
-
-      # ------------------------------------------------------------
-      # Stap 8: QEMU instellen voor multi-arch builds
-      # ------------------------------------------------------------
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-
-      # ------------------------------------------------------------
-      # Stap 9: Buildx instellen
-      # ------------------------------------------------------------
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      # ------------------------------------------------------------
-      # Stap 10: Inloggen op GHCR
-      # ------------------------------------------------------------
-      - name: Log in to GHCR
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      # ------------------------------------------------------------
-      # Stap 11: Multi-arch image bouwen en pushen
-      # Tags:
-      # - latest
-      # - X.Y.Z (nieuwe versie)
-      # ------------------------------------------------------------
-      - name: Build and push multi-arch image
-        uses: docker/build-push-action@v6
-        with:
-          context: ./timelimitserver
-          file: ./timelimitserver/Dockerfile
-          push: true
-          platforms: linux/amd64,linux/arm/v7,linux/arm64
-          tags: |
-            ghcr.io/jeroenlind/timelimitserver:latest
-            ghcr.io/jeroenlind/timelimitserver:${{ steps.bump_version.outputs.new_version }}
+# Schema hoort bij options; nu leeg, later gebruiken we dit voor echte config
+schema: {}
