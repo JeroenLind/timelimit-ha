@@ -1,11 +1,7 @@
 #!/bin/sh
-# Dit script start de TimeLimit test add-on en logt als eerste de versie
-# zodat je in Home Assistant direct ziet welke build draait.
+# Log de add-on versie zoals Home Assistant die doorgeeft
+echo "TimeLimit add-on version: ${BUILD_VERSION:-unknown}"
 
-# Lees de versie uit config.yaml (die wordt door de workflow automatisch gebumpt)
-ADDON_VERSION=$(grep -E '^version:' /data/options.json 2>/dev/null | sed -E 's/.*"([0-9]+\.[0-9]+\.[0-9]+)".*/\1/')
-
-echo "TimeLimit add-on version: ${ADDON_VERSION:-unknown}"
 echo "TimeLimit test add-on container is starting..."
 
 counter=0
