@@ -1,29 +1,23 @@
-FROM node:22-alpine
+FROM node:21-alpine
 
 WORKDIR /app
 
-# Install required system packages
 RUN apk add --no-cache git sqlite
 
-# Clone backend
-RUN git clone https://codeberg.org/timelimit/timelimit-server.git .
+# Clone de echte server
+RUN git clone https://github.com/timelimit/timelimit-server.git .
 
-# Install backend dependencies
-RUN npm install
-
-# Install bcryptjs for run.sh
-RUN npm install bcryptjs
-
-# Build TypeScript → JavaScript
+# Installeer en build
+RUN npm ci
 RUN npm run build
 
-# Remove dev dependencies
-RUN npm prune --production
+# Verwijder dev dependencies
+RUN rm -rf node_modules
+RUN npm ci --omit=dev
 
-# Copy start script
+# Voeg je run.sh toe
 COPY run.sh /app/run.sh
 RUN chmod +x /app/run.sh
 
 EXPOSE 8080
-
 CMD ["/app/run.sh"]
