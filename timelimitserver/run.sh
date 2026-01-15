@@ -2,6 +2,7 @@
 # Dit script houdt de container actief en laat via een oplopende teller zien
 # dat de add-on daadwerkelijk draait. De heartbeat staat op 10 seconden zodat
 # je tijdens het testen snel feedback hebt zonder de log te overspoelen.
+#
 
 echo "TimeLimit test add-on container is starting..."
 
