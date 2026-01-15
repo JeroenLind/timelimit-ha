@@ -46,10 +46,13 @@ jobs:
       - name: Read current version from config.yaml
         id: read_version
         run: |
-          VERSION=$(grep -E '^version:' timelimitserver/config.yaml \
+          # Lees de versie uit de config en strip eventuele CR (\r) en quotes
+          RAW_VERSION=$(grep -E '^version:' timelimitserver/config.yaml \
             | sed -E 's/version:[[:space:]]*"?([0-9]+\.[0-9]+\.[0-9]+)"?/\1/')
+          # Verwijder eventuele carriage returns (CR) die van Windows-line endings kunnen komen
+          VERSION=$(echo "$RAW_VERSION" | tr -d '\r')
           echo "current_version=$VERSION" >> $GITHUB_OUTPUT
-
+          
       # ------------------------------------------------------------
       # Stap 4: Patch-versie verhogen
       # ------------------------------------------------------------
@@ -131,3 +134,4 @@ jobs:
           tags: |
             ghcr.io/jeroenlind/timelimitserver:latest
             ghcr.io/jeroenlind/timelimitserver:${{ steps.bump_version.outputs.new_version }}
+
