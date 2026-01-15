@@ -1,17 +1,16 @@
 #!/bin/sh
-# Dit script houdt de container actief en laat via een oplopende teller zien
-# dat de add-on daadwerkelijk draait. De heartbeat staat op 10 seconden zodat
-# je tijdens het testen snel feedback hebt zonder de log te overspoelen.
-#
+# Dit script start de TimeLimit test add-on en logt als eerste de versie
+# zodat je in Home Assistant direct ziet welke build draait.
 
+# Lees de versie uit config.yaml (die wordt door de workflow automatisch gebumpt)
+ADDON_VERSION=$(grep -E '^version:' /data/options.json 2>/dev/null | sed -E 's/.*"([0-9]+\.[0-9]+\.[0-9]+)".*/\1/')
+
+echo "TimeLimit add-on version: ${ADDON_VERSION:-unknown}"
 echo "TimeLimit test add-on container is starting..."
 
-# Startwaarde van de teller
 counter=0
-
-# Oneindige loop
 while true; do
-  counter=$((counter + 1))   # Verhoog de teller met 1
-  echo "TimeLimit test add-on heartbeat: $counter"  # Log de huidige waarde
-  sleep 10                    # Wacht 10 seconden voor de volgende heartbeat
+  counter=$((counter + 1))
+  echo "TimeLimit test add-on heartbeat: $counter"
+  sleep 10
 done
