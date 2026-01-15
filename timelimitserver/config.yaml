@@ -20,11 +20,11 @@ arch:
   - aarch64
 
 # Externe container image in GitHub Container Registry
-# {arch} wordt door Home Assistant vervangen door de juiste architectuur
-image: "ghcr.io/jeroenlind/timelimitserver-{arch}"
+image: "ghcr.io/jeroenlind/timelimitserver"
 
 # Nog geen configuratie-opties nodig in deze infra-stap
 options: {}
 
 # Schema hoort bij options; nu leeg, later gebruiken we dit voor echte config
+
 schema: {}
