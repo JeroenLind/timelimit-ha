@@ -19,7 +19,13 @@ arch:
   - armv7
   - aarch64
 
+# Belangrijk: voorkom automatisch opstarten bij het starten van Home Assistant
+# 'manual' betekent dat de gebruiker de add-on altijd handmatig moet starten.
+# Dit is ideaal tijdens testen, zodat een fout in de add-on HA niet blokkeert.
+startup: manual
+
 # Externe container image in GitHub Container Registry
+# Let op: geen -{arch} suffix, omdat we één multi-arch image gebruiken.
 image: "ghcr.io/jeroenlind/timelimitserver"
 
 # Nog geen configuratie-opties nodig in deze infra-stap
@@ -28,3 +34,4 @@ options: {}
 # Schema hoort bij options; nu leeg, later gebruiken we dit voor echte config
 
 schema: {}
+
