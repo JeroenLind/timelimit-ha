@@ -7,6 +7,8 @@ on:
     paths:
       - "timelimitserver/**"
 
+  workflow_dispatch:
+
 jobs:
   bump-build-push:
     runs-on: ubuntu-latest
@@ -77,4 +79,5 @@ jobs:
           platforms: linux/amd64,linux/arm/v7,linux/arm64
           tags: |
             ghcr.io/jeroenlind/timelimitserver:latest
+
             ghcr.io/jeroenlind/timelimitserver:${{ steps.bump_version.outputs.new_version }}
