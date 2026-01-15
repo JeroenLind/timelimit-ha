@@ -1,0 +1,30 @@
+# Naam zoals zichtbaar in Home Assistant
+name: "TimeLimit Server"
+
+# Unieke identifier voor deze add-on
+slug: "timelimitserver"
+
+# Add-on versie (los van de echte serverversie)
+version: "0.0.1"
+
+# Auteur / maintainer
+author: "jeroenlind"
+
+# Korte beschrijving van deze eerste infra-versie
+description: "Infrastructure-only test add-on for TimeLimit server container via GHCR."
+
+# Ondersteunde architecturen; matcht straks met de Docker build
+arch:
+  - amd64
+  - armv7
+  - aarch64
+
+# Externe container image in GitHub Container Registry
+# {arch} wordt door Home Assistant vervangen door de juiste architectuur
+image: "ghcr.io/jeroenlind/timelimitserver-{arch}"
+
+# Nog geen configuratie-opties nodig in deze infra-stap
+options: {}
+
+# Schema hoort bij options; nu leeg, later gebruiken we dit voor echte config
+schema: {}
