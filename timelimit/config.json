@@ -1,6 +1,6 @@
 {
   "name": "TimeLimit Server",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "slug": "timelimit",
   "description": "Self-hosted TimeLimit server (SQLite)",
   "startup": "services",
