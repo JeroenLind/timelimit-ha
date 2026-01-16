@@ -1,13 +1,7 @@
 #!/bin/sh
 
-
-echo "=== ENVIRONMENT VARIABLES ==="
-env
-echo "============================="
-
-
-# Lees versie uit /etc/hassio.json (altijd aanwezig in HA add-ons)
-ADDON_VERSION=$(jq -r '.version // empty' /etc/hassio.json 2>/dev/null)
+# Lees versie uit addon_info.json (altijd aanwezig in HA add-ons)
+ADDON_VERSION=$(jq -r '.version // empty' /etc/addon_info.json 2>/dev/null)
 
 echo "TimeLimit add-on version: ${ADDON_VERSION:-unknown}"
 echo "TimeLimit test add-on container is starting..."
