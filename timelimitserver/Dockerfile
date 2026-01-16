@@ -1,18 +1,18 @@
-# Kleine basisimage om de container licht te houden
 FROM alpine:3.20
 
-# Metadata zodat je in GHCR en tooling ziet wat dit is
-LABEL maintainer="jeroenlind" \
-      description="Infrastructure-only test image for Home Assistant TimeLimit server add-on"
+# Zorg voor een minimale, nette basis
+RUN apk add --no-cache bash jq
 
-# Werkdirectory voor de add-on
+# Versie wordt via build-arg binnengebracht en als env gezet
+ARG ADDON_VERSION
+ENV ADDON_VERSION=${ADDON_VERSION}
+
+# Werkdirectory
 WORKDIR /app
 
-# Kopieer het run-script naar de container
+# Kopieer run-script
 COPY run.sh /app/run.sh
-
-# Maak het script uitvoerbaar
 RUN chmod +x /app/run.sh
 
-# Standaard commando: start het run-script
+# Startscript
 CMD ["/app/run.sh"]
