@@ -10,10 +10,10 @@ version: "0.0.14"
 # Auteur / maintainer
 author: "jeroenlind"
 
-# Korte beschrijving van deze eerste infra-versie
-description: "Infrastructure-only test add-on for TimeLimit server container via GHCR."
+# Beschrijving
+description: "TimeLimit server add-on for device usage control."
 
-# Ondersteunde architecturen; matcht straks met de Docker build
+# Ondersteunde architecturen; matcht met de Docker build
 arch:
   - amd64
   - armv7
@@ -22,9 +22,25 @@ arch:
 # Externe container image in GitHub Container Registry
 image: "ghcr.io/jeroenlind/timelimitserver"
 
-# Nog geen configuratie-opties nodig in deze infra-stap
-options: {}
+# Configuratie-opties die Home Assistant opslaat in /data/options.json
+# Gebaseerd op de officiële TimeLimit server configuratie:
+# https://codeberg.org/timelimit/timelimit-server/src/branch/master/src/config.ts
+options:
+  port: 8080
+  log_level: "info"
+  data_dir: "/data/timelimit"
 
-# Schema hoort bij options; nu leeg, later gebruiken we dit voor echte config
-schema: {}
+# Validatie van de configuratie
+schema:
+  port: int
+  log_level: str
+  data_dir: str
 
+# Toegang tot /data zodat de server persistent data kan opslaan
+map:
+  - data:rw
+
+# Poorten die Home Assistant beschikbaar maakt
+ports:
+  "8080/tcp": 8080
+  
