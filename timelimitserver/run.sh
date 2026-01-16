@@ -1,6 +1,6 @@
 #!/bin/sh
-# Log de add-on versie zoals Home Assistant die doorgeeft
-echo "TimeLimit add-on version: ${BUILD_VERSION:-unknown}"
+# Lees versie uit /etc/hassio.json (altijd aanwezig in HA add-ons)
+ADDON_VERSION=$(jq -r '.version // empty' /etc/hassio.json 2>/dev/null)
 
 echo "TimeLimit test add-on container is starting..."
 
