@@ -30,14 +30,14 @@ ENV ADDON_VERSION=${ADDON_VERSION}
 
 WORKDIR /app
 
-# Kopieer de gebuilde server (TypeScript output)
-COPY --from=build /build/build ./build
+# Kopieer de volledige build-output
+COPY --from=build /build/build /app/build
 
 # Kopieer node_modules (runtime dependencies)
-COPY --from=build /build/node_modules ./node_modules
+COPY --from=build /build/node_modules /app/node_modules
 
 # Kopieer mailtemplates en andere niet-gecompileerde assets
-COPY --from=build /build/other ./other
+COPY --from=build /build/other /app/other
 
 # Kopieer run-script
 COPY run.sh /app/run.sh
