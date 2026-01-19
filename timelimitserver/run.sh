@@ -32,6 +32,30 @@ echo "  Log level:  $LOG_LEVEL"
 echo "  Data dir:   $DATA_DIR"
 echo
 
+echo "===== DIRECTORY STRUCTURE CHECK ====="
+
+echo "--- /app ---"
+ls -al /app || echo "ERROR: cannot list /app"
+
+echo
+echo "--- /app/build ---"
+ls -al /app/build || echo "ERROR: cannot list /app/build"
+
+echo
+echo "--- /app/build (recursive) ---"
+ls -R /app/build || echo "ERROR: recursive listing failed"
+
+echo
+echo "--- /app/other ---"
+ls -al /app/other || echo "WARNING: /app/other missing"
+
+echo
+echo "--- /app/other (recursive) ---"
+ls -R /app/other || echo "WARNING: recursive listing failed"
+
+echo "===== END DIRECTORY STRUCTURE CHECK ====="
+echo
+
 # === Sanity checks op de build ===
 
 # 1. Bestaat de build directory?
