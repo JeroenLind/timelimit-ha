@@ -29,12 +29,14 @@ options:
   port: 8080
   log_level: "info"
   data_dir: "/data/timelimit"
+  admin_token: ""   # Leeg = admin API uitgeschakeld
 
 # Validatie van de configuratie
 schema:
   port: int
   log_level: str
   data_dir: str
+  admin_token: str?
 
 # Toegang tot /data zodat de server persistent data kan opslaan
 map:
@@ -43,4 +45,3 @@ map:
 # Poorten die Home Assistant beschikbaar maakt
 ports:
   "8080/tcp": 8080
-  
