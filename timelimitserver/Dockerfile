@@ -15,11 +15,10 @@ RUN npm ci
 # Build de server (maakt /build/build aan)
 RUN npm run build
 
-# Debug: laat zien wat er precies is gebouwd
-RUN echo "===== DEBUG: inhoud van /build =====" \
- && ls -R /build \
- && echo "===== DEBUG: inhoud van /build/build =====" \
- && ls -R /build/build
+RUN echo "===== DEBUG: /build/src =====" && ls -al /build/src
+RUN echo "===== DEBUG: /build/src/api =====" && ls -al /build/src/api
+RUN echo "===== DEBUG: /build/src/routes =====" && ls -al /build/src/routes || echo "routes missing"
+RUN echo "===== DEBUG: /build/src/server* =====" && ls -al /build/src/server* || echo "server.ts missing"
 
 
 # -----------------------------
