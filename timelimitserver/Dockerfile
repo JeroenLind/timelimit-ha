@@ -1,43 +1,52 @@
 # -----------------------------
 # Stage 1: Build TimeLimit server
 # -----------------------------
-FROM node:20-alpine AS build
+FROM node:20-alpine AS serverbuild
 
 WORKDIR /build
 
-# Haal de broncode binnen
-RUN apk add --no-cache git \
- && git clone https://codeberg.org/timelimit/timelimit-server.git .
+RUN apk add --no-cache git
+RUN git clone https://codeberg.org/timelimit/timelimit-server.git .
 
-# Installeer dependencies
 RUN npm ci
-
-# Build de server (maakt /build/build aan)
 RUN npm run build
 
+
 # -----------------------------
-# Stage 2: Runtime container
+# Stage 2: Build TimeLimit UI
+# -----------------------------
+FROM node:20-alpine AS uibuild
+
+WORKDIR /ui
+
+RUN apk add --no-cache git
+RUN git clone https://codeberg.org/timelimit/timelimit-server-ui.git .
+
+RUN npm ci
+RUN npm run build
+
+
+# -----------------------------
+# Stage 3: Runtime container
 # -----------------------------
 FROM alpine:3.20
 
-# Nodige runtime dependencies
-RUN apk add --no-cache bash jq nodejs
-
-ARG ADDON_VERSION
-ENV ADDON_VERSION=${ADDON_VERSION}
+RUN apk add --no-cache bash jq nodejs caddy
 
 WORKDIR /app
 
-# Kopieer de volledige build-output naar /app/build
-COPY --from=build /build/build /app/build
+# Server build output
+COPY --from=serverbuild /build/build /app/build
+COPY --from=serverbuild /build/node_modules /app/node_modules
+COPY --from=serverbuild /build/other /app/other
 
-# Kopieer node_modules
-COPY --from=build /build/node_modules /app/node_modules
+# UI build output
+COPY --from=uibuild /ui/dist /app/ui
 
-# Kopieer overige assets (mailtemplates, defaults, etc.)
-COPY --from=build /build/other /app/other
+# Caddy config
+COPY Caddyfile /etc/caddy/Caddyfile
 
-# run.sh kopiëren
+# run.sh
 COPY run.sh /app/run.sh
 RUN chmod +x /app/run.sh
 

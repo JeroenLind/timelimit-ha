@@ -30,13 +30,12 @@ echo "  Data dir:    $DATA_DIR"
 echo "  Admin token: $( [ -n "$ADMIN_TOKEN" ] && echo "set" || echo "not set" )"
 echo
 
-# Admin token exporteren (server activeert admin API alleen als deze bestaat)
+# Admin token exporteren
 if [ -n "$ADMIN_TOKEN" ]; then
   export ADMIN_TOKEN="$ADMIN_TOKEN"
 fi
 
-# === Sanity checks op de build ===
-
+# Sanity checks
 if [ ! -d "$BUILD_DIR" ]; then
   echo "ERROR: Build directory not found: $BUILD_DIR"
   exit 1
@@ -47,19 +46,13 @@ if [ ! -f "$BUILD_DIR/index.js" ]; then
   exit 1
 fi
 
-if [ ! -d "$OTHER_DIR" ]; then
-  echo "WARNING: 'other' directory not found: $OTHER_DIR"
-fi
-
 mkdir -p "$DATA_DIR"
 
-echo "Starting TimeLimit server..."
-echo
+echo "Starting UI webserver (Caddy)..."
+caddy start --config /etc/caddy/Caddyfile
 
-cd "$BUILD_DIR" || {
-  echo "ERROR: Failed to change directory to $BUILD_DIR"
-  exit 1
-}
+echo "Starting TimeLimit server..."
+cd "$BUILD_DIR" || exit 1
 
 exec node index.js \
   --port "$PORT" \

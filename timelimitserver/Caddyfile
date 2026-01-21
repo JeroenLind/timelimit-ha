@@ -1,0 +1,4 @@
+:8090 {
+    root * /app/ui
+    file_server
+}

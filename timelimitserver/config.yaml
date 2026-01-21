@@ -44,4 +44,5 @@ map:
 
 # Poorten die Home Assistant beschikbaar maakt
 ports:
-  "8080/tcp": 8080
+  "8080/tcp": 8080   # TimeLimit server
+  "8090/tcp": 8090   # UI (Caddy)
