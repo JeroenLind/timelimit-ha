@@ -78,13 +78,13 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push multi-arch image
+      - name: Build and push arm64 image
         uses: docker/build-push-action@v6
         with:
           context: ./timelimitserver
           file: ./timelimitserver/Dockerfile
           push: true
-          platforms: linux/amd64,linux/arm/v7,linux/arm64
+          platforms: linux/arm64
           build-args: |
             ADDON_VERSION=${{ steps.bump_version.outputs.new_version }}
           tags: |

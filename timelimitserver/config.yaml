@@ -15,8 +15,6 @@ description: "TimeLimit server add-on for device usage control."
 
 # Ondersteunde architecturen; matcht met de Docker build
 arch:
-  - amd64
-  - armv7
   - aarch64
 
 # Externe container image in GitHub Container Registry
