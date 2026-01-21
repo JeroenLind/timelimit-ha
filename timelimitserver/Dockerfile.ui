@@ -1,0 +1,18 @@
+# UI build (amd64 only)
+FROM node:20-alpine AS uibuild
+
+WORKDIR /ui
+
+RUN apk add --no-cache \
+    git \
+    python3 \
+    make \
+    g++ \
+    bash
+
+RUN git clone --depth 1 https://codeberg.org/timelimit/timelimit-server-ui.git .
+
+RUN npm ci
+RUN npm run build
+
+# Output: /ui/dist
