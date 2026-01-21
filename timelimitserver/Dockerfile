@@ -26,7 +26,8 @@ COPY --from=serverbuild /build/build /app/build
 COPY --from=serverbuild /build/node_modules /app/node_modules
 COPY --from=serverbuild /build/other /app/other
 
-# UI output (injected from GitHub Actions)
+# UI output (injected from GitHub Actions artifact)
+# De workflow plaatst ui-dist/ in de build context ./timelimitserver
 COPY ui-dist /app/ui
 
 # Caddy config
