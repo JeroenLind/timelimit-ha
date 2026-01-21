@@ -17,17 +17,22 @@ RUN npm run build
 # -----------------------------
 FROM alpine:3.20
 
+# <<< NIEUW
+ARG ADDON_VERSION
+
 RUN apk add --no-cache bash jq nodejs caddy
 
 WORKDIR /app
+
+# <<< NIEUW: versie opslaan in image
+RUN echo "$ADDON_VERSION" > /app/version.txt
 
 # Server build output
 COPY --from=serverbuild /build/build /app/build
 COPY --from=serverbuild /build/node_modules /app/node_modules
 COPY --from=serverbuild /build/other /app/other
 
-# UI output (injected from GitHub Actions artifact)
-# De workflow plaatst ui-dist/ in de build context ./timelimitserver
+# UI output (artifact)
 COPY ui-dist /app/ui
 
 # Caddy config

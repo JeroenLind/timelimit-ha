@@ -1,8 +1,14 @@
 #!/bin/sh
 
+# Versie uitlezen uit bestand (fallback naar unknown)
+VERSION="unknown"
+if [ -f /app/version.txt ]; then
+  VERSION=$(cat /app/version.txt)
+fi
+
 echo "======================================="
 echo " TimeLimit Home Assistant Add-on"
-echo " Version: ${ADDON_VERSION:-unknown}"
+echo " Version: $VERSION"
 echo "======================================="
 echo
 
