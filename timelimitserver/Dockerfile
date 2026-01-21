@@ -19,7 +19,14 @@ FROM node:20-alpine AS uibuild
 
 WORKDIR /ui
 
-RUN apk add --no-cache git
+# Nodig voor @parcel/watcher (node-gyp)
+RUN apk add --no-cache \
+    git \
+    python3 \
+    make \
+    g++ \
+    bash
+
 RUN git clone https://codeberg.org/timelimit/timelimit-server-ui.git .
 
 RUN npm ci
