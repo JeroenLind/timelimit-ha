@@ -5,7 +5,7 @@ name: "TimeLimit Server"
 slug: "timelimitserver"
 
 # Add-on versie (los van de echte serverversie)
-version: "0.0.27"
+version: "0.0.28"
 
 # Auteur / maintainer
 author: "jeroenlind"
