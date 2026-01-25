@@ -44,6 +44,9 @@ fi
 # DEBUG variabele toevoegen voor Node.js/Express logging
 export DEBUG="express:router,express:main,timelimit:*"
 
+# VOEG DEZE REGEL TOE:
+export NODE_ENV="development"
+
 # Sanity checks
 if [ ! -d "$BUILD_DIR" ]; then
   echo "ERROR: Build directory not found: $BUILD_DIR"
