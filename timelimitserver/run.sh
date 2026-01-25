@@ -41,6 +41,9 @@ if [ -n "$ADMIN_TOKEN" ]; then
   export ADMIN_TOKEN="$ADMIN_TOKEN"
 fi
 
+# DEBUG variabele toevoegen voor Node.js/Express logging
+export DEBUG="express:router,express:main,timelimit:*"
+
 # Sanity checks
 if [ ! -d "$BUILD_DIR" ]; then
   echo "ERROR: Build directory not found: $BUILD_DIR"
@@ -55,11 +58,14 @@ fi
 mkdir -p "$DATA_DIR"
 
 echo "Starting UI webserver (Caddy)..."
+# We gebruiken 'run' in plaats van 'start' voor Caddy als we logs willen zien, 
+# maar voor nu laten we de config zoals hij is.
 caddy start --config /etc/caddy/Caddyfile
 
 echo "Starting TimeLimit server..."
 cd "$BUILD_DIR" || exit 1
 
+# De 'exec' regel aangepast om DEBUG door te geven aan node
 exec node index.js \
   --port "$PORT" \
   --log-level "$LOG_LEVEL" \
