@@ -60,12 +60,15 @@ export async function dispatchAddUser ({ action, cache }: {
 
     console.log('[ADD-USER] ✅ User created successfully:', action.userId)
   } catch (err) {
+    const errorInfo = (err && typeof err === 'object') ? err as { code?: unknown; fields?: unknown } : undefined
+    const errorCode = (typeof errorInfo?.code === 'string' || typeof errorInfo?.code === 'number') ? errorInfo.code : undefined
+
     console.error('[ADD-USER] ❌ FAILED to create user:', {
       userId: action.userId,
       error: err instanceof Error ? err.message : String(err),
       name: err instanceof Error ? err.name : 'unknown',
-      code: (err as any)?.code,
-      field: (err as any)?.fields,
+      code: errorCode,
+      field: errorInfo?.fields,
       originalError: JSON.stringify(err, null, 2).substring(0, 500)
     })
     throw err

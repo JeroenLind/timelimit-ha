@@ -126,6 +126,8 @@ export const applyActionsFromDevice = async ({ database, request, websocket, con
         } else {
           const stack = ex instanceof Error && ex.stack ? ex.stack.substring(0, 4096) : 'no stack'
           const errorMsg = ex instanceof Error ? ex.message : String(ex)
+          const errorInfo = (ex && typeof ex === 'object') ? ex as { code?: unknown } : undefined
+          const errorCode = (typeof errorInfo?.code === 'string' || typeof errorInfo?.code === 'number') ? errorInfo.code : undefined
           
           console.error('[APPLY-ACTIONS] ❌ Error processing action:', {
             actionType: action.type,
@@ -133,7 +135,7 @@ export const applyActionsFromDevice = async ({ database, request, websocket, con
             errorMessage: errorMsg,
             errorName: ex instanceof Error ? ex.name : 'unknown',
             stack: stack,
-            code: (ex as any)?.code
+            code: errorCode
           })
 
           eventHandler.countEvent('applyActionsFromDevice errorDispatchingAction:other:' + stack)
