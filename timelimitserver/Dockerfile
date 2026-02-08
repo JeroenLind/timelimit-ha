@@ -8,6 +8,9 @@ WORKDIR /build
 RUN apk add --no-cache git
 RUN git clone --depth 1 https://codeberg.org/timelimit/timelimit-server.git .
 
+# Copy custom patches over the cloned code
+COPY patches/ /build/
+
 RUN npm ci
 RUN npm run build
 
