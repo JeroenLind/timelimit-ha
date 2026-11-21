@@ -28,6 +28,7 @@ options:
   log_level: "info"
   data_dir: "/data/timelimit"
   admin_token: ""   # Leeg = admin API uitgeschakeld
+  debug: false      # Uitgebreide debug-logging (schakelaar in de add-on-configuratie)
 
 # Validatie van de configuratie
 schema:
@@ -35,6 +36,10 @@ schema:
   log_level: str
   data_dir: str
   admin_token: str?
+  debug: bool
+
+# Watchdog: Home Assistant herstart de add-on als de server niet meer antwoordt
+watchdog: "http://[HOST]:[PORT:8080]/time"
 
 # Toegang tot /data zodat de server persistent data kan opslaan
 map:

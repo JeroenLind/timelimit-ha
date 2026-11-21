@@ -72,6 +72,7 @@ port: 8080
 log_level: info
 data_dir: /data/timelimit
 admin_token: "mijn-admin-token"
+debug: false
 ```
 
 ### Opties
@@ -82,6 +83,7 @@ admin_token: "mijn-admin-token"
 | `log_level`  | str  | Logniveau (`info`, `debug`, `warn`, `error`) |
 | `data_dir`   | str  | Persistente opslaglocatie |
 | `admin_token`| str  | Token voor toegang tot de admin-API en UI |
+| `debug`      | bool | Schakelaar voor uitgebreide debug-logging (standaard uit; herstart de add-on na het wijzigen) |
 
 
 

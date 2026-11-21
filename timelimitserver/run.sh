@@ -22,11 +22,13 @@ if [ -f /data/options.json ]; then
   LOG_LEVEL=$(jq -r '.log_level // "info"' /data/options.json)
   DATA_DIR=$(jq -r '.data_dir // "/data/timelimit"' /data/options.json)
   ADMIN_TOKEN=$(jq -r '.admin_token // empty' /data/options.json)
+  DEBUG_MODE=$(jq -r '.debug // false' /data/options.json)
 else
   PORT=8080
   LOG_LEVEL="info"
   DATA_DIR="/data/timelimit"
   ADMIN_TOKEN=""
+  DEBUG_MODE="false"
 fi
 
 echo "Using configuration:"
@@ -34,6 +36,7 @@ echo "  Port:        $PORT"
 echo "  Log level:   $LOG_LEVEL"
 echo "  Data dir:    $DATA_DIR"
 echo "  Admin token: $( [ -n "$ADMIN_TOKEN" ] && echo "set" || echo "not set" )"
+echo "  Debug mode:  $DEBUG_MODE"
 echo
 
 # Admin token exporteren
@@ -41,11 +44,18 @@ if [ -n "$ADMIN_TOKEN" ]; then
   export ADMIN_TOKEN="$ADMIN_TOKEN"
 fi
 
-# DEBUG variabele toevoegen voor Node.js/Express logging
-export DEBUG="express:router,express:main,timelimit:*"
-
-# VOEG DEZE REGEL TOE:
-export NODE_ENV="development"
+# Debug-logging alleen aan als de add-on-optie "debug" aan staat.
+# Standaard (uit): productiemodus en geen Express-routerlogging, zodat er
+# weinig logregels per request worden geschreven (minder I/O en geheugen).
+if [ "$DEBUG_MODE" = "true" ]; then
+  export DEBUG="express:router,express:main,timelimit:*"
+  export NODE_ENV="development"
+  export TIMELIMIT_DEBUG="1"   # volledige actiedata in de patch-logging
+else
+  unset DEBUG
+  export NODE_ENV="production"
+  unset TIMELIMIT_DEBUG
+fi
 
 # Sanity checks
 if [ ! -d "$BUILD_DIR" ]; then

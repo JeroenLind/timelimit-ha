@@ -30,6 +30,9 @@ import { IllegalStateException } from './exception/illegal-state'
 import { SequenceNumberRepeatedException } from './exception/sequence'
 import { assertActionIntegrity } from './integrity'
 
+// volledige actiedata (bevat o.a. integriteitswaarden) alleen loggen in debug-modus
+const logFullActionData = process.env.TIMELIMIT_DEBUG === '1'
+
 export const applyActionsFromDevice = async ({ database, request, websocket, connectedDevicesManager, eventHandler }: {
   database: Database
   websocket: WebsocketApi
@@ -120,7 +123,7 @@ export const applyActionsFromDevice = async ({ database, request, websocket, con
           console.error('[APPLY-ACTIONS] ApplyActionException:', {
             message: ex.staticMessage,
             actionType: action.type,
-            actionData: action
+            actionData: logFullActionData ? action : undefined
           })
           eventHandler.countEvent('applyActionsFromDevice errorDispatchingAction:' + ex.staticMessage)
         } else {
@@ -131,7 +134,7 @@ export const applyActionsFromDevice = async ({ database, request, websocket, con
           
           console.error('[APPLY-ACTIONS] ❌ Error processing action:', {
             actionType: action.type,
-            actionData: action,
+            actionData: logFullActionData ? action : undefined,
             errorMessage: errorMsg,
             errorName: ex instanceof Error ? ex.name : 'unknown',
             stack: stack,
