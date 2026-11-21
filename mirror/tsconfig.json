@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "outDir": "./build",
+    "allowJs": true,
+    "target": "es2017",
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "module": "node16",
+    "noUnusedLocals": true,
+    "noUnusedParameters": false,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "skipLibCheck": true
+  },
+  "include": [
+    "./src/**/*",
+    "./test/**/*",
+    "index.ts"
+  ],
+  "compileOnSave": true
+}

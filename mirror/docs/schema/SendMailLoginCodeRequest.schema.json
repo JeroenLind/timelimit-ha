@@ -1,0 +1,23 @@
+{
+  "type": "object",
+  "properties": {
+    "mail": {
+      "type": "string"
+    },
+    "locale": {
+      "type": "string"
+    },
+    "deviceAuthToken": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "locale",
+    "mail"
+  ],
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SendMailLoginCodeRequest",
+  "$id": "https://timelimit.io/SendMailLoginCodeRequest"
+}

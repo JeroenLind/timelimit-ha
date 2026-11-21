@@ -1,0 +1,41 @@
+<mjml>
+  <mj-body>
+    <mj-section background-color="#009688">
+      <mj-column>
+        <mj-text font-size="20px" color="#ffffff">TimeLimit</mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section>
+      <mj-column>
+        <mj-text>
+          <p><%= preText %> <b><%= deviceName %></b> <%= postText %></p>
+          <p><%= securityText %></p>
+        </mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section>
+      <mj-column>
+        <mj-divider border-width="1px" border-style="dashed" border-color="lightgrey" />
+      </mj-column>
+    </mj-section>
+    <mj-section>
+      <mj-column>
+        <mj-text>
+          <p>
+            Sie erhalten diese Nachricht, da ein Gerät zu Ihrem Konto hinzugefügt wurde.
+            Mit diesem Gerät können die TimeLimit-Einstellungen ohne ein Passwort geändert werden.
+            Falls Sie Fragen haben können Sie einfach auf diese E-Mail antworten.
+          </p>
+          <p>
+            You got this message because a device was added to your account.
+            This device can be used to change the TimeLimit configuration without any password.
+            If you have got any questions, then you can reply to this message.
+          </p>
+          <p>
+            &copy; <%= mailimprint %>
+          </p>
+        </mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>

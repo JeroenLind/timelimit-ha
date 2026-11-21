@@ -1,0 +1,55 @@
+<mjml>
+  <mj-body>
+    <mj-section background-color="#009688">
+      <mj-column>
+        <mj-text font-size="20px" color="#ffffff">TimeLimit</mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section>
+      <mj-column>
+        <mj-text>
+          <p>
+            TimeLimit wurde vom Gerät <b><%= deviceName %></b> entfernt. Ein Zurücksetzen der
+            App, wonach diese immer noch "da", aber nicht eingerichtet ist, zählt auch als Entfernen.
+            In jedem Fall wurde diese Aktion durch den Benutzer des Gerätes durchgeführt -
+            in der Voreinstellung kann TimeLimit jederzeit, auch durch das Kind, entfernt werden.
+            Technisch bedingt wird nicht jede Entfernung erkannt, sodass nicht in jedem Fall diese
+            Benachrichtigung kommt.
+          </p>
+
+          <p>
+            TimeLimit was removed from <b><%= deviceName %></b>. A reset of the App, after which it is
+            still "there", but not set up, is considered a removal, too. In any case, this was
+            done by the user of the device. Remember that by default, it is always possible
+            to remove TimeLimit, for parents and children. For technical reasons, not every
+            removal can be detected, so that you will not always get this notifications.
+          </p>
+        </mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section>
+      <mj-column>
+        <mj-divider border-width="1px" border-style="dashed" border-color="lightgrey" />
+      </mj-column>
+    </mj-section>
+    <mj-section>
+      <mj-column>
+        <mj-text>
+          <p>
+            Sie erhalten diese Nachricht, weil Sie E-Mail-Benachrichtigungen in TimeLimit aktiviert haben.
+            Sie können die Nachrichten in der TimeLimit-App abbestellen.
+            Falls Sie Fragen haben können Sie einfach auf diese E-Mail antworten.
+          </p>
+          <p>
+            You got this mail because you enable mail notifications for this in TimeLimit.
+            You can disable getting these messages in the TimeLimit App.
+            If you have got any questions, then you can reply to this message.
+          </p>
+          <p>
+            &copy; <%= mailimprint %>
+          </p>
+        </mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>

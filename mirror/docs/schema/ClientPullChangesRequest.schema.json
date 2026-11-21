@@ -1,0 +1,114 @@
+{
+  "type": "object",
+  "properties": {
+    "deviceAuthToken": {
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/definitions/ClientDataStatus"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "deviceAuthToken",
+    "status"
+  ],
+  "definitions": {
+    "ClientDataStatus": {
+      "type": "object",
+      "properties": {
+        "devices": {
+          "type": "string"
+        },
+        "apps": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "categories": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/CategoryDataStatus"
+          }
+        },
+        "users": {
+          "type": "string"
+        },
+        "clientLevel": {
+          "type": "number"
+        },
+        "devicesDetail": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/DeviceDataStatus"
+          }
+        },
+        "kri": {
+          "type": "number"
+        },
+        "kr": {
+          "type": "number"
+        },
+        "dh": {
+          "type": "string"
+        },
+        "u2f": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "apps",
+        "categories",
+        "devices",
+        "users"
+      ],
+      "title": "ClientDataStatus"
+    },
+    "CategoryDataStatus": {
+      "type": "object",
+      "properties": {
+        "base": {
+          "type": "string"
+        },
+        "apps": {
+          "type": "string"
+        },
+        "rules": {
+          "type": "string"
+        },
+        "usedTime": {
+          "type": "string"
+        },
+        "tasks": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "apps",
+        "base",
+        "rules",
+        "usedTime"
+      ],
+      "title": "CategoryDataStatus"
+    },
+    "DeviceDataStatus": {
+      "type": "object",
+      "properties": {
+        "appsB": {
+          "type": "string"
+        },
+        "appsD": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "title": "DeviceDataStatus"
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ClientPullChangesRequest",
+  "$id": "https://timelimit.io/ClientPullChangesRequest"
+}

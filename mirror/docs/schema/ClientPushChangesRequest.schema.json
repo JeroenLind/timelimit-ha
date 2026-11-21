@@ -1,0 +1,58 @@
+{
+  "type": "object",
+  "properties": {
+    "deviceAuthToken": {
+      "type": "string"
+    },
+    "actions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ClientPushChangesRequestAction"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "actions",
+    "deviceAuthToken"
+  ],
+  "definitions": {
+    "ClientPushChangesRequestAction": {
+      "type": "object",
+      "properties": {
+        "encodedAction": {
+          "type": "string"
+        },
+        "sequenceNumber": {
+          "type": "number"
+        },
+        "integrity": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "appLogic",
+            "child",
+            "parent"
+          ],
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "encodedAction",
+        "integrity",
+        "sequenceNumber",
+        "type",
+        "userId"
+      ],
+      "title": "ClientPushChangesRequestAction"
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ClientPushChangesRequest",
+  "$id": "https://timelimit.io/ClientPushChangesRequest"
+}

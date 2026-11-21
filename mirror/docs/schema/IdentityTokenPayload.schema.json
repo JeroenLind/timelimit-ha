@@ -1,0 +1,35 @@
+{
+  "additionalProperties": false,
+  "type": "object",
+  "properties": {
+    "purpose": {
+      "type": "string",
+      "enum": [
+        "purchase"
+      ]
+    },
+    "familyId": {
+      "type": "string"
+    },
+    "userId": {
+      "type": "string"
+    },
+    "mail": {
+      "type": "string"
+    },
+    "exp": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "exp",
+    "familyId",
+    "mail",
+    "purpose",
+    "userId"
+  ],
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "IdentityTokenPayload",
+  "$id": "https://timelimit.io/IdentityTokenPayload"
+}

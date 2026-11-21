@@ -1,0 +1,626 @@
+{
+  "anyOf": [
+    {
+      "$ref": "#/definitions/SerializedAddInstalledAppsAction"
+    },
+    {
+      "$ref": "#/definitions/SerializedAddUsedTimeAction"
+    },
+    {
+      "$ref": "#/definitions/SerializedAddUsedTimeActionVersion2"
+    },
+    {
+      "$ref": "#/definitions/SerializedFinishKeyRequestAction"
+    },
+    {
+      "$ref": "#/definitions/SerializedForceSyncAction"
+    },
+    {
+      "$ref": "#/definitions/SerializedReplyToKeyRequestAction"
+    },
+    {
+      "$ref": "#/definitions/SerializedMarkTaskPendingAction"
+    },
+    {
+      "$ref": "#/definitions/SerializedPingAction"
+    },
+    {
+      "$ref": "#/definitions/SerializedUpdateInstalledAppsAction"
+    },
+    {
+      "$ref": "#/definitions/SerializedRemoveInstalledAppsAction"
+    },
+    {
+      "$ref": "#/definitions/SerializedSendKeyRequestAction"
+    },
+    {
+      "$ref": "#/definitions/SerializedSignOutAtDeviceAction"
+    },
+    {
+      "$ref": "#/definitions/SerialiezdTriedDisablingDeviceAdminAction"
+    },
+    {
+      "$ref": "#/definitions/SerializedUpdateAppActivitiesAction"
+    },
+    {
+      "$ref": "#/definitions/SerializedUpdateDeviceStatusAction"
+    },
+    {
+      "$ref": "#/definitions/SerializedUploadDevicePublicKeyAction"
+    }
+  ],
+  "definitions": {
+    "SerializedAddInstalledAppsAction": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "ADD_INSTALLED_APPS"
+          ]
+        },
+        "apps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SerializedInstalledApp"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "apps",
+        "type"
+      ],
+      "title": "SerializedAddInstalledAppsAction"
+    },
+    "SerializedInstalledApp": {
+      "type": "object",
+      "properties": {
+        "packageName": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "isLaunchable": {
+          "type": "boolean"
+        },
+        "recommendation": {
+          "$ref": "#/definitions/AppRecommendation"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "isLaunchable",
+        "packageName",
+        "recommendation",
+        "title"
+      ],
+      "title": "SerializedInstalledApp"
+    },
+    "AppRecommendation": {
+      "enum": [
+        "blacklist",
+        "none",
+        "whitelist"
+      ],
+      "type": "string",
+      "title": "AppRecommendation"
+    },
+    "SerializedAddUsedTimeAction": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "ADD_USED_TIME"
+          ]
+        },
+        "categoryId": {
+          "type": "string"
+        },
+        "day": {
+          "type": "number"
+        },
+        "timeToAdd": {
+          "type": "number"
+        },
+        "extraTimeToSubtract": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "categoryId",
+        "day",
+        "extraTimeToSubtract",
+        "timeToAdd",
+        "type"
+      ],
+      "title": "SerializedAddUsedTimeAction"
+    },
+    "SerializedAddUsedTimeActionVersion2": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "ADD_USED_TIME_V2"
+          ]
+        },
+        "d": {
+          "type": "number"
+        },
+        "i": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "categoryId": {
+                "type": "string"
+              },
+              "tta": {
+                "type": "number"
+              },
+              "etts": {
+                "type": "number"
+              },
+              "as": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "minItems": 2,
+                  "maxItems": 2
+                }
+              },
+              "sdl": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "minItems": 4,
+                  "maxItems": 4
+                }
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "categoryId",
+              "etts",
+              "tta"
+            ]
+          }
+        },
+        "t": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "d",
+        "i",
+        "type"
+      ],
+      "title": "SerializedAddUsedTimeActionVersion2"
+    },
+    "SerializedFinishKeyRequestAction": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "FINISH_KEY_REQUEST"
+          ]
+        },
+        "dsn": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "dsn",
+        "type"
+      ],
+      "title": "SerializedFinishKeyRequestAction"
+    },
+    "SerializedForceSyncAction": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "FORCE_SYNC"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type"
+      ],
+      "title": "SerializedForceSyncAction"
+    },
+    "SerializedReplyToKeyRequestAction": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "REPLY_TO_KEY_REQUEST"
+          ]
+        },
+        "rsn": {
+          "type": "number"
+        },
+        "tempKey": {
+          "type": "string"
+        },
+        "encryptedKey": {
+          "type": "string"
+        },
+        "signature": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "encryptedKey",
+        "rsn",
+        "signature",
+        "tempKey",
+        "type"
+      ],
+      "title": "SerializedReplyToKeyRequestAction"
+    },
+    "SerializedMarkTaskPendingAction": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "MARK_TASK_PENDING"
+          ]
+        },
+        "taskId": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "taskId",
+        "type"
+      ],
+      "title": "SerializedMarkTaskPendingAction"
+    },
+    "SerializedPingAction": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "PING"
+          ]
+        },
+        "deviceId": {
+          "type": "string"
+        },
+        "event": {
+          "$ref": "#/definitions/PingEvent"
+        },
+        "token": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "deviceId",
+        "event",
+        "token",
+        "type"
+      ],
+      "title": "SerializedPingAction"
+    },
+    "PingEvent": {
+      "enum": [
+        "clear",
+        "ping",
+        "pong"
+      ],
+      "type": "string",
+      "title": "PingEvent"
+    },
+    "SerializedUpdateInstalledAppsAction": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "UPDATE_INSTALLED_APPS"
+          ]
+        },
+        "b": {
+          "type": "string"
+        },
+        "d": {
+          "type": "string"
+        },
+        "w": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "w"
+      ],
+      "title": "SerializedUpdateInstalledAppsAction"
+    },
+    "SerializedRemoveInstalledAppsAction": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "REMOVE_INSTALLED_APPS"
+          ]
+        },
+        "packageNames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "packageNames",
+        "type"
+      ],
+      "title": "SerializedRemoveInstalledAppsAction"
+    },
+    "SerializedSendKeyRequestAction": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "SEND_KEY_REQUEST"
+          ]
+        },
+        "dsn": {
+          "type": "number"
+        },
+        "deviceId": {
+          "type": "string"
+        },
+        "categoryId": {
+          "type": "string"
+        },
+        "dataType": {
+          "type": "number"
+        },
+        "tempKey": {
+          "type": "string"
+        },
+        "signature": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "dataType",
+        "dsn",
+        "signature",
+        "tempKey",
+        "type"
+      ],
+      "title": "SerializedSendKeyRequestAction"
+    },
+    "SerializedSignOutAtDeviceAction": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "SIGN_OUT_AT_DEVICE"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type"
+      ],
+      "title": "SerializedSignOutAtDeviceAction"
+    },
+    "SerialiezdTriedDisablingDeviceAdminAction": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "TRIED_DISABLING_DEVICE_ADMIN"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type"
+      ],
+      "title": "SerialiezdTriedDisablingDeviceAdminAction"
+    },
+    "SerializedUpdateAppActivitiesAction": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "UPDATE_APP_ACTIVITIES"
+          ]
+        },
+        "removed": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "minItems": 2,
+            "maxItems": 2
+          }
+        },
+        "updatedOrAdded": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SerializedAppActivityItem"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "removed",
+        "type",
+        "updatedOrAdded"
+      ],
+      "title": "SerializedUpdateAppActivitiesAction"
+    },
+    "SerializedAppActivityItem": {
+      "type": "object",
+      "properties": {
+        "p": {
+          "type": "string"
+        },
+        "c": {
+          "type": "string"
+        },
+        "t": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "c",
+        "p",
+        "t"
+      ],
+      "title": "SerializedAppActivityItem"
+    },
+    "SerializedUpdateDeviceStatusAction": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "UPDATE_DEVICE_STATUS"
+          ]
+        },
+        "protectionLevel": {
+          "enum": [
+            "device owner",
+            "none",
+            "password device admin",
+            "simple device admin"
+          ],
+          "type": "string"
+        },
+        "usageStats": {
+          "enum": [
+            "granted",
+            "not granted",
+            "not required"
+          ],
+          "type": "string"
+        },
+        "notificationAccess": {
+          "enum": [
+            "granted",
+            "not granted",
+            "not supported"
+          ],
+          "type": "string"
+        },
+        "overlayPermission": {
+          "enum": [
+            "granted",
+            "not granted",
+            "not required"
+          ],
+          "type": "string"
+        },
+        "accessibilityServiceEnabled": {
+          "type": "boolean"
+        },
+        "appVersion": {
+          "type": "number"
+        },
+        "didReboot": {
+          "type": "boolean"
+        },
+        "isQOrLaterNow": {
+          "type": "boolean"
+        },
+        "addedManipulationFlags": {
+          "type": "number"
+        },
+        "platformType": {
+          "type": "string"
+        },
+        "platformLevel": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type"
+      ],
+      "title": "SerializedUpdateDeviceStatusAction"
+    },
+    "SerializedUploadDevicePublicKeyAction": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "UPLOAD_DEVICE_PUBLIC_KEY"
+          ]
+        },
+        "key": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "key",
+        "type"
+      ],
+      "title": "SerializedUploadDevicePublicKeyAction"
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SerializedAppLogicAction",
+  "$id": "https://timelimit.io/SerializedAppLogicAction"
+}

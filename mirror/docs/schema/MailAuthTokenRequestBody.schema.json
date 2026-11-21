@@ -1,0 +1,16 @@
+{
+  "type": "object",
+  "properties": {
+    "mailAuthToken": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "mailAuthToken"
+  ],
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MailAuthTokenRequestBody",
+  "$id": "https://timelimit.io/MailAuthTokenRequestBody"
+}

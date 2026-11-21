@@ -1,0 +1,75 @@
+{
+  "anyOf": [
+    {
+      "$ref": "#/definitions/SerializedChildChangePasswordAction"
+    },
+    {
+      "$ref": "#/definitions/SerializedChildSignInAction"
+    }
+  ],
+  "definitions": {
+    "SerializedChildChangePasswordAction": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "CHILD_CHANGE_PASSWORD"
+          ]
+        },
+        "password": {
+          "$ref": "#/definitions/EncryptableParentPassword"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "password",
+        "type"
+      ],
+      "title": "SerializedChildChangePasswordAction"
+    },
+    "EncryptableParentPassword": {
+      "type": "object",
+      "properties": {
+        "hash": {
+          "type": "string"
+        },
+        "secondHash": {
+          "type": "string"
+        },
+        "secondSalt": {
+          "type": "string"
+        },
+        "encrypted": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "hash",
+        "secondHash",
+        "secondSalt"
+      ],
+      "title": "EncryptableParentPassword"
+    },
+    "SerializedChildSignInAction": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "CHILD_SIGN_IN"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type"
+      ],
+      "title": "SerializedChildSignInAction"
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SerializedChildAction",
+  "$id": "https://timelimit.io/SerializedChildAction"
+}

@@ -1,0 +1,54 @@
+<mjml>
+  <mj-body>
+    <mj-section background-color="#009688">
+      <mj-column>
+        <mj-text font-size="20px" color="#ffffff">TimeLimit</mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section>
+      <mj-column>
+        <mj-text>
+          <p>
+            Die TimeLimit-Installation von dem Gerät <b><%= deviceName %></b> hat eine Manipulation gemeldet.
+            Sie können die Details dazu in der TimeLimit-App einsehen.
+            <br />
+            Solange Sie nicht die Warnung in TimeLimit bestätigen (ignorieren und/ oder beheben)
+            erhalten Sie keine weitere Manipulationsbenachrichtigungen für dieses Gerät.
+          </p>
+
+          <p>
+            TimeLimit at <b><%= deviceName %></b> reported a manipulation.
+            You can see the details in the TimeLimit App.
+            <br />
+            You will not get any further warnings for this device
+            until you confirm (ignore and/ or fix) the manipulation in the TimeLimit App.
+          </p>
+        </mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section>
+      <mj-column>
+        <mj-divider border-width="1px" border-style="dashed" border-color="lightgrey" />
+      </mj-column>
+    </mj-section>
+    <mj-section>
+      <mj-column>
+        <mj-text>
+          <p>
+            Sie erhalten diese Nachricht, weil Sie E-Mail-Benachrichtigungen in TimeLimit aktiviert haben.
+            Sie können die Nachrichten in der TimeLimit-App abbestellen.
+            Falls Sie Fragen haben können Sie einfach auf diese E-Mail antworten.
+          </p>
+          <p>
+            You got this mail because you enable mail notifications for this in TimeLimit.
+            You can disable getting these messages in the TimeLimit App.
+            If you have got any questions, then you can reply to this message.
+          </p>
+          <p>
+            &copy; <%= mailimprint %>
+          </p>
+        </mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>

@@ -1,0 +1,63 @@
+{
+  "name": "timelimit-server-2018",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "description": "",
+  "scripts": {
+    "test": "node --test build/test",
+    "start": "node ./build/index.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "build": "npm run build:clean && npm run build:json && npm run build:ts && npm run lint && npm run build:doc",
+    "build:clean": "rm -rf build",
+    "build:json": "node ./scripts/build-schemas.js",
+    "build:ts": "tsc",
+    "build:doc": "npm run build:doc:json",
+    "build:doc:json": "jsonschema2md -d docs/schema -o docs/schema -x -"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/timelimit.io/timelimit-server-2018.git"
+  },
+  "author": "Jonas Lochmann",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://gitlab.com/timelimit.io/timelimit-server-2018/issues"
+  },
+  "homepage": "https://gitlab.com/timelimit.io/timelimit-server-2018#README",
+  "devDependencies": {
+    "@adobe/jsonschema2md": "^8.0.8",
+    "@eslint/js": "^10.0.1",
+    "@types/basic-auth": "^1.1.3",
+    "@types/body-parser": "^1.19.0",
+    "@types/ejs": "^3.1.0",
+    "@types/express": "^4.17.9",
+    "@types/http-errors": "^1.8.0",
+    "@types/lodash": "^4.14.166",
+    "@types/node": "^20.19.43",
+    "@types/nodemailer": "^6.4.4",
+    "eslint": "^10.0.1",
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^8.72.3-alpha.1",
+    "typescript-json-schema": "^0.52.0"
+  },
+  "dependencies": {
+    "ajv": "^8.18.0",
+    "basic-auth": "^2.0.1",
+    "body-parser": "^1.19.0",
+    "ejs": "^3.1.5",
+    "email-addresses": "^3.1.0",
+    "express": "^4.17.1",
+    "http-errors": "^1.8.0",
+    "jose": "^4.9.3",
+    "lodash": "^4.17.21",
+    "nodemailer": "^10.0.14",
+    "pg": "^8.5.1",
+    "pg-hstore": "^2.3.3",
+    "rate-limiter-flexible": "^2.1.15",
+    "sequelize": "^6.25.5",
+    "socket.io": "^4.0.1",
+    "umzug": "^3.8.1"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "type": "object",
+  "properties": {
+    "mailAuthToken": {
+      "type": "string"
+    },
+    "parentDevice": {
+      "$ref": "#/definitions/NewDeviceInfo"
+    },
+    "deviceName": {
+      "type": "string"
+    },
+    "clientLevel": {
+      "type": "number"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "deviceName",
+    "mailAuthToken",
+    "parentDevice"
+  ],
+  "definitions": {
+    "NewDeviceInfo": {
+      "type": "object",
+      "properties": {
+        "model": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "model"
+      ],
+      "title": "NewDeviceInfo"
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SignIntoFamilyRequest",
+  "$id": "https://timelimit.io/SignIntoFamilyRequest"
+}

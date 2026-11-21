@@ -1,0 +1,44 @@
+<mjml>
+  <mj-body>
+    <mj-section background-color="#009688">
+      <mj-column>
+        <mj-text font-size="20px" color="#ffffff">TimeLimit</mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section>
+      <mj-column>
+        <mj-text>
+          <p>
+            Sie haben eine Löschung Ihres Benutzerkontos angefordert. Diese wurde soeben durchgeführt.
+          </p>
+
+          <p>
+            You requested the deletion of your account. This deletion is finished now.
+          </p>
+        </mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section>
+      <mj-column>
+        <mj-divider border-width="1px" border-style="dashed" border-color="lightgrey" />
+      </mj-column>
+    </mj-section>
+    <mj-section>
+      <mj-column>
+        <mj-text>
+          <p>
+            Sie erhalten diese Nachricht aufgrund Ihrer Anfrage.
+            Falls Sie Fragen haben können Sie einfach auf diese E-Mail antworten.
+          </p>
+          <p>
+            You got this mail due to your request.
+            If you have got any questions, then you can reply to this message.
+          </p>
+          <p>
+            &copy; <%= mailimprint %>
+          </p>
+        </mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>

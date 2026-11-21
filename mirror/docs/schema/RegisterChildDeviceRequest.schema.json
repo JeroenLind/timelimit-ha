@@ -1,0 +1,41 @@
+{
+  "type": "object",
+  "properties": {
+    "registerToken": {
+      "type": "string"
+    },
+    "childDevice": {
+      "$ref": "#/definitions/NewDeviceInfo"
+    },
+    "deviceName": {
+      "type": "string"
+    },
+    "clientLevel": {
+      "type": "number"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "childDevice",
+    "deviceName",
+    "registerToken"
+  ],
+  "definitions": {
+    "NewDeviceInfo": {
+      "type": "object",
+      "properties": {
+        "model": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "model"
+      ],
+      "title": "NewDeviceInfo"
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "RegisterChildDeviceRequest",
+  "$id": "https://timelimit.io/RegisterChildDeviceRequest"
+}
