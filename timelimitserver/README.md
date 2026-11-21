@@ -73,17 +73,24 @@ log_level: info
 data_dir: /data/timelimit
 admin_token: "mijn-admin-token"
 debug: false
+always_pro: true
 ```
+
+> **Database:** de huidige TimeLimit-server ondersteunt alleen PostgreSQL. De add-on draait daarvoor
+> een eigen PostgreSQL in dezelfde container (alleen via een unix-socket bereikbaar). Gegevens uit een
+> oudere add-onversie worden niet overgenomen.
+> **E-mail:** er is geen mailserver; login-codes verschijnen in de add-on-log.
 
 ### Opties
 
 | Optie        | Type | Beschrijving |
 |--------------|------|--------------|
 | `port`       | int  | Poort waarop de server draait (standaard 8080) |
-| `log_level`  | str  | Logniveau (`info`, `debug`, `warn`, `error`) |
-| `data_dir`   | str  | Persistente opslaglocatie |
+| `log_level`  | str  | Wordt door de huidige serverversie niet meer gebruikt (blijft bestaan voor compatibiliteit) |
+| `data_dir`   | str  | Persistente opslaglocatie; de PostgreSQL-database staat in `<data_dir>/pgdata` |
 | `admin_token`| str  | Token voor toegang tot de admin-API en UI |
 | `debug`      | bool | Schakelaar voor uitgebreide debug-logging (standaard uit; herstart de add-on na het wijzigen) |
+| `always_pro` | bool | Premium-functies voor alle gezinnen (standaard aan; nodig voor o.a. extra tijd en tijdelijk blokkeren) |
 
 
 

@@ -1,7 +1,7 @@
 # -----------------------------
 # Stage 1: Build TimeLimit server (arm64 native)
 # -----------------------------
-FROM node:20-alpine AS serverbuild
+FROM node:24-alpine AS serverbuild
 
 WORKDIR /build
 
@@ -20,17 +20,20 @@ RUN git apply --verbose /patches/*.patch
 
 RUN npm ci
 RUN npm run build
+# dev-dependencies weghalen (kleiner image, zoals de upstream Dockerfile doet)
+RUN npm prune --omit=dev
 
 
 # -----------------------------
 # Stage 2: Runtime container
 # -----------------------------
-FROM alpine:3.20
+FROM node:24-alpine
 
 # <<< NIEUW
 ARG ADDON_VERSION
 
-RUN apk add --no-cache bash jq nodejs caddy
+# De server heeft PostgreSQL nodig; die draait in deze container (zie run.sh)
+RUN apk add --no-cache bash jq caddy postgresql su-exec
 
 WORKDIR /app
 
