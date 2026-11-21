@@ -1,7 +1,11 @@
 # -----------------------------
 # Stage 1: Build TimeLimit server (arm64 native)
 # -----------------------------
-FROM node:24-alpine AS serverbuild
+# Alpine-release vastgezet: de PostgreSQL-hoofdversie hangt aan de Alpine-release
+# (3.23 = PostgreSQL 18). De tag "24-alpine" schuift mee naar nieuwere Alpine-releases
+# (nu 3.24), waarna PostgreSQL de bestaande database in /data niet meer kan openen.
+# Pas dit alleen aan met een plan voor een dump/restore van de database.
+FROM node:24-alpine3.23 AS serverbuild
 
 WORKDIR /build
 
@@ -27,7 +31,7 @@ RUN npm prune --omit=dev
 # -----------------------------
 # Stage 2: Runtime container
 # -----------------------------
-FROM node:24-alpine
+FROM node:24-alpine3.23
 
 # <<< NIEUW
 ARG ADDON_VERSION
