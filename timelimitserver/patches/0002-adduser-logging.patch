@@ -1,0 +1,81 @@
+diff --git a/src/function/sync/apply-actions/dispatch-parent-action/adduser.ts b/src/function/sync/apply-actions/dispatch-parent-action/adduser.ts
+index 9f0f131..f094306 100644
+--- a/src/function/sync/apply-actions/dispatch-parent-action/adduser.ts
++++ b/src/function/sync/apply-actions/dispatch-parent-action/adduser.ts
+@@ -19,33 +19,58 @@ import { AddUserAction } from '../../../../action/index.js'
+ import { decryptParentPassword } from '../../../dh/index.js'
+ import { Cache } from '../cache.js'
+ 
++const debugLogging = process.env.TIMELIMIT_DEBUG === '1'
++
+ export async function dispatchAddUser ({ action, cache }: {
+   action: AddUserAction
+   cache: Cache
+ }) {
++  if (debugLogging) {
++    console.log('[ADD-USER] Processing action:', {
++      userId: action.userId,
++      userType: action.userType,
++      name: action.name,
++      timeZone: action.timeZone,
++      hasPassword: !!action.password
++    })
++  }
++
+   const password =
+     action.password ?
+     await decryptParentPassword({ cache, password: action.password }) :
+     null
+ 
+-  await cache.transaction.legacy.database.user.create({
+-    familyId: cache.familyId,
+-    userId: action.userId,
+-    type: action.userType,
+-    name: action.name,
+-    timeZone: action.timeZone,
+-    passwordHash: password ? password.hash : '',
+-    secondPasswordHash: password ? password.secondHash : '',
+-    secondPasswordSalt: password ? password.secondSalt : '',
+-    mail: '',
+-    disableTimelimitsUntil: '0',
+-    currentDevice: '',
+-    categoryForNotAssignedApps: '',
+-    relaxPrimaryDeviceRule: false,
+-    mailNotificationFlags: 0,
+-    blockedTimes: '',
+-    flags: '0'
+-  }, { transaction: cache.transaction.legacy.transaction })
++  try {
++    await cache.transaction.legacy.database.user.create({
++      familyId: cache.familyId,
++      userId: action.userId,
++      type: action.userType,
++      name: action.name,
++      timeZone: action.timeZone,
++      passwordHash: password ? password.hash : '',
++      secondPasswordHash: password ? password.secondHash : '',
++      secondPasswordSalt: password ? password.secondSalt : '',
++      mail: '',
++      disableTimelimitsUntil: '0',
++      currentDevice: '',
++      categoryForNotAssignedApps: '',
++      relaxPrimaryDeviceRule: false,
++      mailNotificationFlags: 0,
++      blockedTimes: '',
++      flags: '0'
++    }, { transaction: cache.transaction.legacy.transaction })
++  } catch (err) {
++    const errorCode = (err && typeof err === 'object' && 'code' in err) ? (err as { code?: unknown }).code : undefined
++
++    console.error('[ADD-USER] Failed to create user:', {
++      userId: action.userId,
++      error: err instanceof Error ? err.message : String(err),
++      errorName: err instanceof Error ? err.name : 'unknown',
++      code: errorCode
++    })
++
++    throw err
++  }
+ 
+   cache.invalidiateUserList = true
+   cache.incrementTriggeredSyncLevel(1)

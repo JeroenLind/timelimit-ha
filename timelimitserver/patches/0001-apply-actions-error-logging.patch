@@ -1,0 +1,39 @@
+diff --git a/src/function/sync/apply-actions/index.ts b/src/function/sync/apply-actions/index.ts
+index bd996b4..b896da4 100644
+--- a/src/function/sync/apply-actions/index.ts
++++ b/src/function/sync/apply-actions/index.ts
+@@ -33,6 +33,9 @@ import { IllegalStateException } from './exception/illegal-state.js'
+ import { SequenceNumberRepeatedException } from './exception/sequence.js'
+ import { assertActionIntegrity } from './integrity.js'
+ 
++// volledige actiedata (bevat o.a. integriteitswaarden) alleen loggen in debug-modus
++const logFullActionData = process.env.TIMELIMIT_DEBUG === '1'
++
+ export const applyActionsFromDevice = async ({ config, database, mailTransport, request, websocket, connectedDevicesManager, eventHandler }: {
+   config: AlwaysProConfig
+   database: SimpleDatabase
+@@ -123,10 +126,24 @@ export const applyActionsFromDevice = async ({ config, database, mailTransport,
+ 
+           throw ex
+         } else if (ex instanceof ApplyActionException) {
++          console.error('[APPLY-ACTIONS] ApplyActionException:', {
++            message: ex.staticMessage,
++            actionType: action.type,
++            actionData: logFullActionData ? action : undefined
++          })
++
+           eventHandler.countEvent('applyActionsFromDevice errorDispatchingAction:' + ex.staticMessage)
+         } else {
+           const stack = ex instanceof Error && ex.stack ? ex.stack.substring(0, 4096) : 'no stack'
+ 
++          console.error('[APPLY-ACTIONS] Error processing action:', {
++            actionType: action.type,
++            actionData: logFullActionData ? action : undefined,
++            errorMessage: ex instanceof Error ? ex.message : String(ex),
++            errorName: ex instanceof Error ? ex.name : 'unknown',
++            stack
++          })
++
+           eventHandler.countEvent('applyActionsFromDevice errorDispatchingAction:other:' + stack)
+         }
+ 
